@@ -51,7 +51,7 @@ module Amazon
         json_result = nil
         begin
           if @content_type == 'JSON' then
-            json_result = JSON::Lexer.new(reply[:value]).nextvalue
+            json_result = ElasticMapReduce::JSON::Lexer.new(reply[:value]).nextvalue
             reply[:value] = get_value(operation_name, json_result)
           else
             reply[:value] = convert_to_json(reply[:value])
@@ -78,7 +78,7 @@ module Amazon
         return json_result
       end
 
-      private 
+      private
       def convert_to_json(document)
         doc = REXML::Document.new(document)
         array = []
@@ -86,11 +86,11 @@ module Amazon
           array << xml_to_json(elem) if elem.kind_of?(REXML::Element)
         end
         raise "Failed parsing response: #{$!}\n" if array.length > 1
-        
+
         return array.first
       end
 
-      private 	
+      private
       def xml_to_json(parent)
         array  = []
         struct = {}
@@ -118,7 +118,7 @@ module Amazon
           return parent.text
         end
       end
-      
+
       private
       def aws_error?(response, body)
 	# This method has been copied and adapted from:
