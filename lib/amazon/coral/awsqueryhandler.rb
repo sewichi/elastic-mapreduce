@@ -1,8 +1,8 @@
 #
 # Copyright 2008-2010 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
 
-require 'json/lexer'
-require 'json/objects'
+require 'elastic-mapreduce-json/lexer'
+require 'elastic-mapreduce-json/objects'
 require 'rexml/document'
 require 'amazon/coral/handler'
 require 'amazon/coral/querystringmap'
