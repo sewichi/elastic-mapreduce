@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = "elastic-mapreduce"
-  s.version = "2013.11.08"
+  s.version = "2014.09.16"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Amazon.com", "Koichi Fujikawa"]
@@ -67,9 +67,9 @@ Gem::Specification.new do |s|
     "lib/credentials.rb",
     "lib/ec2_client_wrapper.rb",
     "lib/elastic-mapreduce-cli.rb",
-    "lib/json.rb",
-    "lib/json/lexer.rb",
-    "lib/json/objects.rb",
+    "lib/elastic-mapreduce-json.rb",
+    "lib/elastic-mapreduce-json/lexer.rb",
+    "lib/elastic-mapreduce-json/objects.rb",
     "lib/run_tests.rb",
     "lib/simple_executor.rb",
     "lib/simple_logger.rb",
