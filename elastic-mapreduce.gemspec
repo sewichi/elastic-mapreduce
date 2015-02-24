@@ -89,19 +89,5 @@ Gem::Specification.new do |s|
   s.rubygems_version = "1.8.15"
   s.summary = "Amazon's commandline client for EMR (Elastic Map-Reduce) invocation (Unofficial Gem and Ruby 1.9 Version)"
 
-  if s.respond_to? :specification_version then
-    s.specification_version = 3
-
-    if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
-      s.add_development_dependency(%q<bundler>, ["~> 1.0.0"])
-      s.add_development_dependency(%q<jeweler>, ["~> 1.6.1"])
-    else
-      s.add_dependency(%q<bundler>, ["~> 1.0.0"])
-      s.add_dependency(%q<jeweler>, ["~> 1.6.1"])
-    end
-  else
-    s.add_dependency(%q<bundler>, ["~> 1.0.0"])
-    s.add_dependency(%q<jeweler>, ["~> 1.6.1"])
-  end
 end
 
