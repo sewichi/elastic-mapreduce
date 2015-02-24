@@ -26,31 +26,31 @@
 
 
 class Object
-  def to_json #all strings in json need to have double quotes around them, treat random objects as strings
-    String.to_json(to_s)
+  def elastic_mapreduce_to_json #all strings in json need to have double quotes around them, treat random objects as strings
+    String.elastic_mapreduce_to_json(to_s)
   end
 end
 
 
 class NilClass
-  def to_json
+  def elastic_mapreduce_to_json
     "null"
   end
 end
 class TrueClass
-  def to_json
+  def elastic_mapreduce_to_json
     "true"
   end
 end
 
 class FalseClass
-  def to_json
+  def elastic_mapreduce_to_json
     "false"
   end
 end
 
 class Numeric
-  def to_json
+  def elastic_mapreduce_to_json
     to_s
   end
 end
@@ -58,11 +58,11 @@ end
 class String
     # produce a string in double quotes with all the necessary quoting
     # done
-    def to_json
-      return String.to_json(self)
+    def elastic_mapreduce_to_json
+      return String.elastic_mapreduce_to_json(self)
     end
 
-    def self.to_json(str)
+    def self.elastic_mapreduce_to_json(str)
       return "\"\"" if (str.length == 0)
       newstr = "\""
       str.each_byte {
@@ -99,13 +99,13 @@ class Array
 
     # This method will return a string giving the contents of the JSON
     # array in standard JSON format.
-    def to_json
+    def elastic_mapreduce_to_json
       retval = '['
 
       first=true
       self.each { |obj|
 	retval << ',' unless first
-	retval << obj.to_json
+	retval << obj.elastic_mapreduce_to_json
 	first=false
       }
       retval << "]"
@@ -119,7 +119,7 @@ class Array
     # directly.
     # =====Parameters
     # +lexer+:: Lexer object to use
-    def from_json(lexer)
+    def elastic_mapreduce_from_json(lexer)
       raise "A JSON Array must begin with '['" if (lexer.nextclean != "[")
       return (self) if lexer.nextclean == ']'
       lexer.back
@@ -144,15 +144,15 @@ end
 class Hash
 
     # This method will serialize the hash into regular JSON format.
-    def to_json
+    def elastic_mapreduce_to_json
       retval = "{"
 
       first = true
       self.each {|key, val|
  	retval << "," unless first
 	key = key.to_s #keys in json hashes need to be strings, nothing else.
- 	retval << key.to_json + ":"
- 	retval << val.to_json
+ 	retval << key.elastic_mapreduce_to_json + ":"
+ 	retval << val.elastic_mapreduce_to_json
 	first = false
       }
       retval << "}"
@@ -165,7 +165,7 @@ class Hash
     # original JSON object.  This method probably shouldn't be used
     # directly.
     # =====Parameters
-    def from_json(lexer)
+    def elastic_mapreduce_from_json(lexer)
       lexer.unescape if (lexer.nextclean == '%')
       lexer.back
       raise "A JSON Object must begin with '{'" if (lexer.nextclean != "{")

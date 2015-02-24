@@ -222,10 +222,10 @@ module ElasticMapReduce
   	return(self.nextstring(c))
         when '{'
   	self.back()
-          return(Hash.new.from_json(self))
+          return(Hash.new.elastic_mapreduce_from_json(self))
         when '['
   	self.back()
-  	return(Array.new.from_json(self))
+  	return(Array.new.elastic_mapreduce_from_json(self))
         else
   	buf = ""
   	while ((c =~ /"| |:|,|\]|\}|\/|\0/).nil?)

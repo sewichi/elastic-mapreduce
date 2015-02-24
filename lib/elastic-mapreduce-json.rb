@@ -30,7 +30,7 @@ module ElasticMapReduce
             else
               stream << "," << "\n"
             end
-            stream << indent << "  " << key.to_json.chomp << ": "
+            stream << indent << "  " << key.elastic_mapreduce_to_json.chomp << ": "
             self.pretty_generate_recursive(value, stream, indent + "  ")
           end
           stream << "\n" << indent << "}"
@@ -53,7 +53,7 @@ module ElasticMapReduce
           stream << "\n" << indent << "]"
         end
       else
-        stream << obj.to_json.chomp
+        stream << obj.elastic_mapreduce_to_json.chomp
       end
     end
   end
