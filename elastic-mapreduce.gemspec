@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = "elastic-mapreduce"
-  s.version = "2013.11.08"
+  s.version = "2015.02.23"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Amazon.com", "Koichi Fujikawa"]
@@ -67,9 +67,9 @@ Gem::Specification.new do |s|
     "lib/credentials.rb",
     "lib/ec2_client_wrapper.rb",
     "lib/elastic-mapreduce-cli.rb",
-    "lib/json.rb",
-    "lib/json/lexer.rb",
-    "lib/json/objects.rb",
+    "lib/elastic-mapreduce-json.rb",
+    "lib/elastic-mapreduce-json/lexer.rb",
+    "lib/elastic-mapreduce-json/objects.rb",
     "lib/run_tests.rb",
     "lib/simple_executor.rb",
     "lib/simple_logger.rb",
@@ -89,19 +89,5 @@ Gem::Specification.new do |s|
   s.rubygems_version = "1.8.15"
   s.summary = "Amazon's commandline client for EMR (Elastic Map-Reduce) invocation (Unofficial Gem and Ruby 1.9 Version)"
 
-  if s.respond_to? :specification_version then
-    s.specification_version = 3
-
-    if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
-      s.add_development_dependency(%q<bundler>, ["~> 1.0.0"])
-      s.add_development_dependency(%q<jeweler>, ["~> 1.6.1"])
-    else
-      s.add_dependency(%q<bundler>, ["~> 1.0.0"])
-      s.add_dependency(%q<jeweler>, ["~> 1.6.1"])
-    end
-  else
-    s.add_dependency(%q<bundler>, ["~> 1.0.0"])
-    s.add_dependency(%q<jeweler>, ["~> 1.6.1"])
-  end
 end
 
