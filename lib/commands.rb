@@ -10,7 +10,11 @@ require 'open3'
 
 module Commands
 
-  ELASTIC_MAPREDUCE_CLIENT_VERSION = "2011-11-23"
+  ELASTIC_MAPREDUCE_CLIENT_VERSION = "2015-06-08"
+  DEFAULT_SERVICE_ROLE = 'EMR_EC2_DefaultRole'
+  DEFAULT_JOB_FLOW_ROLE = 'EMR_DefaultRole'
+  DEFAULT_AMI_VERSION = '2.4.6'
+  DEFAULT_HADOOP_VERSION = '1.0.3'
 
   class Commands
     attr_accessor :opts, :global_options, :commands, :logger, :executor
@@ -790,7 +794,8 @@ module Commands
     attr_accessor :jobflow_name, :alive, :with_termination_protection, :instance_count, :slave_instance_type,
       :master_instance_type, :key_pair, :key_pair_file, :log_uri, :az, :ainfo, :ami_version, :with_supported_products,
       :hadoop_version, :plain_output, :instance_type,
-      :instance_group_commands, :bootstrap_commands, :subnet_id
+      :instance_group_commands, :bootstrap_commands, :subnet_id,
+      :not_visible_to_all_users, :service_role, :job_flow_role
 
 
     OLD_OPTIONS = [:instance_count, :slave_instance_type, :master_instance_type]
@@ -800,7 +805,7 @@ module Commands
       if get_field(:ami_version) == "1.0" then
         "0.20"
       else
-        "0.20.205"
+        DEFAULT_HADOOP_VERSION
       end
     end
 
@@ -843,7 +848,6 @@ module Commands
       apply_jobflow_option(:hadoop_version, "Instances", "HadoopVersion")
       apply_jobflow_option(:az, "Instances", "Placement", "AvailabilityZone")
       apply_jobflow_option(:log_uri, "LogUri")
-      apply_jobflow_option(:ami_version, "AmiVersion")
       apply_jobflow_option(:subnet_id, "Instances", "Ec2SubnetId")
 
       @jobflow["AmiVersion"] ||= "latest"
@@ -935,7 +939,11 @@ module Commands
           "InstanceGroups" => []
         },
         "Steps" => [],
-        "BootstrapActions" => []
+        "BootstrapActions" => [],
+        "VisibleToAllUsers" => (!get_field(:not_visible_to_all_users)),
+        "ServiceRole" => get_field(:service_role, DEFAULT_SERVICE_ROLE),
+        "JobFlowRole" => get_field(:job_flow_role, DEFAULT_JOB_FLOW_ROLE),
+        "AmiVersion" => get_field(:ami_version, DEFAULT_AMI_VERSION)
       }
       products_string = get_field(:with_supported_products)
       if products_string then
@@ -1451,7 +1459,10 @@ module Commands
       [ OptionWithArg, "--info INFO",                 "Specify additional info to job flow creation", :ainfo ],
       [ OptionWithArg, "--hadoop-version INFO",       "Specify the Hadoop Version to install", :hadoop_version ],
       [ FlagOption,    "--plain-output",              "Return the job flow id from create step as simple text", :plain_output ],
+      [ FlagOption,    "--not-visible-to-all-users",      "Hide the job flow from other users", :not_visible_to_all_users],
       [ OptionWithArg, "--subnet EC2-SUBNET_ID",      "Specify the VPC subnet that you want to run in", :subnet_id ],
+      [ OptionWithArg, "--service-role",              "Use this role for the EMR service", :service_role],
+      [ OptionWithArg, "--job-flow-role",             "Use this role for the instances in the cluster", :job_flow_role],
     ])
     commands.parse_command(CreateInstanceGroupCommand, "--instance-group ROLE", "Specify an instance group while creating a jobflow")
     commands.parse_options(["--instance-group", "--add-instance-group"], [
