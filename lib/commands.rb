@@ -1459,7 +1459,7 @@ module Commands
       [ OptionWithArg, "--info INFO",                 "Specify additional info to job flow creation", :ainfo ],
       [ OptionWithArg, "--hadoop-version INFO",       "Specify the Hadoop Version to install", :hadoop_version ],
       [ FlagOption,    "--plain-output",              "Return the job flow id from create step as simple text", :plain_output ],
-      [ FlagOption,    "--not-visible-to-all-users",      "Hide the job flow from other users", :not_visible_to_all_users],
+      [ FlagOption,    "--not-visible-to-all-users",  "Hide the job flow from other users", :not_visible_to_all_users],
       [ OptionWithArg, "--subnet EC2-SUBNET_ID",      "Specify the VPC subnet that you want to run in", :subnet_id ],
       [ OptionWithArg, "--service-role",              "Use this role for the EMR service", :service_role],
       [ OptionWithArg, "--job-flow-role",             "Use this role for the instances in the cluster", :job_flow_role],
