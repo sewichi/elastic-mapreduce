@@ -56,6 +56,7 @@ class EmrClient
   end
 
   def describe_jobflow_with_id(jobflow_id)
+    raise "DescribeJobFlows is deprecated"
     logger.trace "DescribeJobFlows('JobFlowIds' => [ #{jobflow_id} ])"
     result = @client.DescribeJobFlows('JobFlowIds' => [ jobflow_id ], 'DescriptionType' => 'EXTENDED')
     logger.trace result.inspect
@@ -81,6 +82,7 @@ class EmrClient
   end
 
   def describe_jobflow(options)
+    raise "DescribeJobFlows is deprecated"
     logger.trace "DescribeJobFlows(#{options.inspect})"
     result = @client.DescribeJobFlows(options.merge('DescriptionType' => 'EXTENDED'))
     logger.trace result.inspect
